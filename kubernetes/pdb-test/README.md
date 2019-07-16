@@ -1,6 +1,6 @@
 ## Notes on Kubernetes Pod Disruption Budgets - PDB
 
-[Pod Disruption Budget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/#how-disruption-budgets-work) objects allow you to define a policy for a minimum number of workload instances running for a cluster at any given point in time.
+[Pod Disruption Budget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/#how-disruption-budgets-work) objects allow you to define a policy for the minimum number of workload instances running on a cluster at any given point in time.
 
 You basically define either the `minimum number of instances available` or the `maximum number of instances unavailable` for a deployment in the cluster and Kubernetes will enforce that for you.
 
