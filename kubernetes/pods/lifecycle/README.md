@@ -31,9 +31,9 @@ spec:
           command: ["/bin/bash","-c","curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Goodbye, World! From the preStop method.\"}' $SLACK_WEB_HOOK_URL"]
 ```  
 
-2. Before creating the pod, if not yet available, you need to create an Incoming Webhook on Slack by following these instructions: https://api.slack.com/incoming-webhooks . For experimentation purposes, you can set the `Post To` channel of the webhook to be your own slack ID (`@yourslackid`) or the `Slackbot`.
+2. Before creating the pod, if not yet available, create an Incoming Webhook on Slack by following these instructions: https://api.slack.com/incoming-webhooks . For experimentation purposes, set the `Post To` channel of the webhook to be your own slack ID (`@yourslackid`) or `Slackbot`.
 
-3. Once you have the Slack Incoming Webhook defined and enabled, copy its URL (e.g. `https://hooks.slack.com/services/T0000000ASDFASDFASDFASFD`) and replace it as the value for the `SLACK_WEB_HOOK_URL` environment variable entry in the Pod definition file.
+3. Once you have the Slack Incoming Webhook defined and enabled, copy its URL (e.g. `https://hooks.slack.com/services/T0000000ASDFASDFASDFASFD`) and set it as the value for the `SLACK_WEB_HOOK_URL` environment variable entry in the Pod definition file.
 
 4. Create the pod with the updated Pod definition file:  
 
