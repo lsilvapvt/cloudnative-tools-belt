@@ -4,8 +4,7 @@ This page contains a sample on how to define handlers that send Slack messages o
 
 A message is sent to a pre-defined Slack Webhook right after the Kubernetes pod is started (`postStart`) and right before the Pod is terminated (`preStop`).  
 
-<img src="https://raw.githubusercontent.com/lsilvapvt/pcf-tools-belt/master/kubernetes/pods/lifecycle/slack_msg_container_hooks.png" alt="Slack" align="left" border=1 />
-
+<img src="https://raw.githubusercontent.com/lsilvapvt/pcf-tools-belt/master/kubernetes/pods/lifecycle/slack_msg_container_hooks.png" alt="Slack" border="1" width="500px"/><br/>
 
 1. To get started, download [pods-lifecycle-hooks.yml](pods-lifecycle-hooks.yml) the sample configuration file for the Pod:  
 
