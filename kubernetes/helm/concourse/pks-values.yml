@@ -3,6 +3,7 @@ concourse:
     auth:
       mainTeam:
         localUser: admin 
+    externalUrl: https://concourse.yourcompany.com
     bindPort: 80
     tls:
       enabled: true
