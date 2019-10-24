@@ -1,0 +1,42 @@
+concourse:
+  web:
+    auth:
+      mainTeam:
+        localUser: admin 
+    externalUrl: https://concourse.yourcompany.com
+    bindPort: 80
+    tls:
+      enabled: true
+      bindPort: 443
+  worker:
+    baggageclaim:
+      driver: overlay
+web:
+  service:
+    type: LoadBalancer
+postgresql:
+  postgresqlPassword: "PWD-GOES-HERE"
+secrets:
+  localUsers: "admin:PWD-GOES-HERE"
+  sessionSigningKey: |-  
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
+  webTlsCert: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+  webTlsKey: |
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
+  workerKey: |
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
+  workerKeyPub: ssh-rsa ...
+  hostKey: |-
+    -----BEGIN RSA PRIVATE KEY-----
+    ...
+    -----END RSA PRIVATE KEY-----
+  hostKeyPub: ssh-rsa ...

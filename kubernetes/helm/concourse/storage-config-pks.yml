@@ -1,0 +1,10 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: concourse-storage-class
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+  datastore: LUN01
+  diskformat: thin
+  fstype: ext3
+volumeBindingMode: Immediate
