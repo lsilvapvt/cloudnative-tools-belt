@@ -1,0 +1,74 @@
+apiVersion: v1
+data:
+  SA_PASSWORD: cGFzc3cwcmQ=   
+  # base64 password value for key SA_PASSWORD (passw0rd) OR use command
+  # kubectl create secret generic mssql --from-literal=SA_PASSWORD=passw0rd -n mssql
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: mssql
+  namespace: mssql
+---  
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mssql-pv-claim
+  namespace: mssql
+  annotations:
+    volume.beta.kubernetes.io/storage-class: lun  # have your storage class ID here 
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql
+  namespace: mssql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql
+  template:
+    metadata:
+      labels:
+        app: mssql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mssql
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        # see list of image tags in https://hub.docker.com/_/microsoft-mssql-server
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SA_PASSWORD 
+        volumeMounts:
+        - name: mssqldb
+          mountPath: /var/opt/mssql
+      volumes:
+      - name: mssqldb
+        persistentVolumeClaim:
+          claimName: mssql-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mssql
+  namespace: mssql
+spec:
+  ports:
+  - port: 1433
+  selector:
+    app: mssql
+  type: LoadBalancer
