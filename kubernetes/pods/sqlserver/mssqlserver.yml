@@ -38,13 +38,14 @@ spec:
       labels:
         app: mssql
     spec:
+      terminationGracePeriodSeconds: 10
       securityContext:
         runAsUser: 10001
-        runAsGroup: 10001      
-      terminationGracePeriodSeconds: 10
+        runAsGroup: 10001
+        fsGroup: 1000
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/server:2017-latest
+        image: mcr.microsoft.com/mssql/server:2019-latest
         # see list of image tags in https://hub.docker.com/_/microsoft-mssql-server
         ports:
         - containerPort: 1433
