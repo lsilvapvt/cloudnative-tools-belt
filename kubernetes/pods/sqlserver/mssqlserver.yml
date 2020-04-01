@@ -1,8 +1,8 @@
 apiVersion: v1
 data:
-  SA_PASSWORD: cGFzc3cwcmQ=   
-  # base64 password value for key SA_PASSWORD (passw0rd) OR use command
-  # kubectl create secret generic mssql --from-literal=SA_PASSWORD=passw0rd -n mssql
+  SA_PASSWORD: eW91clN0cm9uZyghKVBhc3N3b3Jk
+  # base64 password value for key SA_PASSWORD yourStrong(!)Password OR use command
+  # kubectl create secret generic mssql --from-literal=SA_PASSWORD='yourStrong(!)Password' -n mssql
 kind: Secret
 metadata:
   creationTimestamp: null
@@ -38,16 +38,21 @@ spec:
       labels:
         app: mssql
     spec:
+      securityContext:
+        runAsUser: 10001
+        runAsGroup: 10001      
       terminationGracePeriodSeconds: 10
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2017-latest
         # see list of image tags in https://hub.docker.com/_/microsoft-mssql-server
         ports:
         - containerPort: 1433
         env:
         - name: ACCEPT_EULA
           value: "Y"
+        - name: MSSQL_PID
+          value: "Developer"
         - name: SA_PASSWORD
           valueFrom:
             secretKeyRef:
