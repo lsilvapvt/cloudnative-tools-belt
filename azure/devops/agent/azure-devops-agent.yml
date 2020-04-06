@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azuredevopsagent
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azuredevopsagent
+  template:
+    metadata:
+      labels:
+        app: azuredevopsagent
+    spec:
+      containers:
+      - name: azuredevopsagent
+        image: silval/azure-devops-agent:latest
+        env:
+        - name: AZP_URL
+          value: https://dev.azure.com/lsilva0356
+        - name: AZP_AGENT_NAME
+          value: my-k8s-devops-agent
+        - name: AZP_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: azuredevops
+              key: AZP_TOKEN 
