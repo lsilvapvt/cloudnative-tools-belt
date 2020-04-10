@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx-custom
+  name: nginx-custom
+  namespace: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-custom
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx-custom
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);sed -i \"s/Welcome to nginx/Welcome to nginx - $MYIP/\" /usr/share/nginx/html/index.html;"]
+            #   command: ["/bin/sh","-c","export MYIP=$(hostname -I);sed -i \"s/Welcome to nginx/Welcome to nginx - $MYIP/\" /usr/share/nginx/html/index.html;sed -i \"s/<head>/<head><meta http-equiv=\\\"Cache-control\\\" content=\\\"no-cache\\\">/\" /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx-custom
+  name: nginx-custom-svc
+  namespace: myapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-custom
+  type: LoadBalancer          
+
+                
+        
+        
+
+        
