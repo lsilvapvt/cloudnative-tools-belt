@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: logger-pod
+  name: logger-pod
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger-pod
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: logger-pod
+    spec:
+      containers:
+      - image: busybox
+        name: logger-pod
+        args: [/bin/sh, -c, 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 10; done'] 
