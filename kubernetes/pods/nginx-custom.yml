@@ -1,3 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,9 +10,9 @@ metadata:
   labels:
     app: nginx-custom
   name: nginx-custom
-  namespace: myapp
+  namespace: demo
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: nginx-custom
@@ -24,8 +29,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh","-c","export MYIP=$(hostname -I);sed -i \"s/Welcome to nginx/Welcome to nginx - $MYIP/\" /usr/share/nginx/html/index.html;"]
-            #   command: ["/bin/sh","-c","export MYIP=$(hostname -I);sed -i \"s/Welcome to nginx/Welcome to nginx - $MYIP/\" /usr/share/nginx/html/index.html;sed -i \"s/<head>/<head><meta http-equiv=\\\"Cache-control\\\" content=\\\"no-cache\\\">/\" /usr/share/nginx/html/index.html;"]
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Welcome to nginx - $MYIP !</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
 ---
 apiVersion: v1
 kind: Service
@@ -33,17 +37,11 @@ metadata:
   labels:
     app: nginx-custom
   name: nginx-custom-svc
-  namespace: myapp
+  namespace: demo
 spec:
   ports:
   - port: 80
     protocol: TCP
   selector:
     app: nginx-custom
-  type: LoadBalancer          
-
-                
-        
-        
-
-        
+  type: ClusterIP          

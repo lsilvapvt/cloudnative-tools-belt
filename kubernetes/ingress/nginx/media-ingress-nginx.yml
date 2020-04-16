@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: media
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: music-app
+  name: music-deployment
+  namespace: media
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: music-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: music-app
+    spec:
+      containers:
+      - image: nginx
+        name: music-app
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Welcome to the MUSIC application - $MYIP !</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: music-app
+  name: music-svc
+  namespace: media
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: music-app
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: video-app
+  name: video-deployment
+  namespace: media
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: video-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: video-app
+    spec:
+      containers:
+      - image: nginx
+        name: video-app
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Welcome to the VIDEO application - $MYIP !</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: video-app
+  name: video-svc
+  namespace: media
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: video-app
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: media-ingress
+  namespace: media
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: music.svc.haas-208.pez.pivotal.io
+    http:
+      paths:
+      - backend:
+          serviceName: music-svc
+          servicePort: 80
+  - host: video.svc.haas-208.pez.pivotal.io
+    http:
+      paths:
+      - backend:
+          serviceName: video-svc
+          servicePort: 80            
