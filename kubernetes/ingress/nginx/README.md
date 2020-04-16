@@ -1,8 +1,8 @@
-## Test Kubernetes Ingress with NGINX Controller
+## Test Kubernetes Ingress with an NGINX Controller
 
-This sample demonstrates the concept of services and ingress objects in Kubernetes.
+This sample demonstrates the concept of services and ingress objects in Kubernetes by using the [Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/).
 
-The sample configuration file in this repository deploys the following resources when applied to a Kubernetes cluster:
+The [sample configuration file](./media-ingress-nginx.yml) in this repository deploys the following resources when applied to a Kubernetes cluster:
 
 1. A `media` namespace
 1. A `music-deployment` containing two `music-app` pods 

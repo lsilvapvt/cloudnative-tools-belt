@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: got
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: starks-app
+  name: starks-deployment
+  namespace: got
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: starks-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: starks-app
+    spec:
+      containers:
+      - image: nginx
+        name: starks-app
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Winter is coming! - $MYIP</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: starks-app
+  name: starks-svc
+  namespace: got
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: starks-app
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: lannisters-app
+  name: lannisters-deployment
+  namespace: got
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lannisters-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: lannisters-app
+    spec:
+      containers:
+      - image: nginx
+        name: lannisters-app
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>A Lannister always pays his debts! - $MYIP </h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: lannisters-app
+  name: lannisters-svc
+  namespace: got
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: lannisters-app
+  type: ClusterIP
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: got-ingress-starks
+  namespace: got
+spec: 
+  virtualhost:
+    fqdn: starks.got.haas-208.pez.pivotal.io
+  routes: 
+    - match: /
+      services: 
+        - name: starks-svc
+          port: 80          
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: got-ingress-lannisters
+  namespace: got
+spec: 
+  virtualhost:
+    fqdn: lannisters.got.haas-208.pez.pivotal.io
+  routes: 
+    - match: /
+      services: 
+        - name: lannisters-svc
+          port: 80              
