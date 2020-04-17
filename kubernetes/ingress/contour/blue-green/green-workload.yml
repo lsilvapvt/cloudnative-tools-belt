@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bluegreen
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: green-app
+    app-version: green
+  name: green-deployment
+  namespace: bluegreen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: green-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: green-app
+        app-version: green
+    spec:
+      containers:
+      - image: nginx
+        name: green-app
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>GREEN! - $MYIP </h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: green-app
+    app-version: green
+  name: green-svc
+  namespace: bluegreen
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: green-app
+  type: ClusterIP

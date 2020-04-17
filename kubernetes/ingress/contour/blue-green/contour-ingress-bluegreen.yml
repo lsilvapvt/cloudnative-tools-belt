@@ -1,0 +1,36 @@
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: blue
+  namespace: bluegreen
+spec: 
+  routes: 
+    - match: /
+      services: 
+        - name: blue-svc
+          port: 80
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: green
+  namespace: bluegreen
+spec: 
+  routes: 
+    - match: /
+      services: 
+        - name: green-svc
+          port: 80  
+---
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata: 
+  name: blue-green-root
+  namespace: bluegreen
+spec: 
+  virtualhost:
+    fqdn: myservice.go.haas-208.pez.pivotal.io
+  routes: 
+    - match: / 
+      delegate:
+        name: blue
