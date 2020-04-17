@@ -1,4 +1,4 @@
-## Samples of Kubernetes Ingress Routing configurations by using Contour
+## Samples of Contour ingress configuration files
 
 The folders in this repository provide samples of configuration files for use-cases of Kubernetes ingress routing with the [Contour ingress controller](https://projectcontour.io/).
 
