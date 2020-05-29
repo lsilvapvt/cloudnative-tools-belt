@@ -1,0 +1,2327 @@
+{
+    "name": "PKS Control Plane VM",
+    "url": "LSilva-PKS-API-VM",
+    "description": "This dashboard displays metrics from hosts where Telegraf is being used for system metric collection with Wavefront's output plugin.",
+    "eventFilterType": "BYCHART",
+    "displayDescription": false,
+    "displaySectionTableOfContents": true,
+    "displayQueryParameters": true,
+    "sections": [
+      {
+        "name": "Summary",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "COUNT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "timeBasedColoring": false,
+                  "sparklineValueColorMapColors": [
+                    "rgba(54,130,201,1)",
+                    "rgba(255,224,61,1)",
+                    "rgba(242,101,34,1)"
+                  ],
+                  "fixedLegendPosition": "TOP",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(31,112,171,1)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(255,255,255,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "BOTTOM",
+                  "sparklineValueColorMapValuesV2": [
+                    99,
+                    100
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(88,146,189,1)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total CPU Usage (non-idle)",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "New Query",
+                    "sparklineDisplaySubLabel": "Total CPU Usage (non-idle)"
+                  },
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "New Query",
+                    "query": "100-(avg(rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=idle AND not cpu)))*100)",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": "Total CPU Usage of Server"
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "max": 100,
+                  "timeBasedColoring": false,
+                  "sparklineValueColorMapColors": [
+                    "rgba(54,130,201,1)",
+                    "rgba(255,224,61,1)",
+                    "rgba(242,101,34,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(31,112,171,1)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "min": 0,
+                  "sparklineDisplayColor": "rgba(255,255,255,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    90,
+                    100
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(88,146,189,1)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total Memory Usage",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "used_percent",
+                    "sparklineDisplaySubLabel": "Total Memory Usage"
+                  },
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "total_memory",
+                    "query": "ts(\"node.memory.MemTotal.bytes.gauge\", source=\"${host}\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "memory_available",
+                    "query": "ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "memory_in_use",
+                    "query": "${total_memory}-${memory_available}",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "total_in_use_percent",
+                    "query": "${memory_in_use}/${total_memory}*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": "Total Memory Usage of Host"
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "max": 100,
+                  "timeBasedColoring": false,
+                  "sparklineValueColorMapColors": [
+                    "rgba(54,130,201,1)",
+                    "rgba(255,224,61,1)",
+                    "rgba(242,101,34,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(31,112,171,1)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "min": 0,
+                  "sparklineDisplayColor": "rgba(255,255,255,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    99.9,
+                    100
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(88,146,189,1)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Max Disk Usage",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "New Query",
+                    "sparklineDisplaySubLabel": "Max Disk Usage"
+                  },
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "disk_size",
+                    "query": "ts(\"node.filesystem.size.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "disk_available",
+                    "query": "ts(\"node.filesystem.avail.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "disk_used",
+                    "query": "max((${disk_size}-${disk_available})/${disk_size}*100)",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": "Total Disk Used for Host"
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "bosh_instance_name",
+                    "version",
+                    "sysname",
+                    "release",
+                    "machine",
+                    "nodename",
+                    "director"
+                  ],
+                  "showRawValues": true,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "sparklineValueColorMapApplyTo": "TEXT",
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "sparklineSize": "BOTTOM",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "System Info",
+                "units": "",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "Source",
+                    "sparklineDisplaySubLabel": "Blocked Processes"
+                  },
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "ts(\"node.uname.info.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "CPU",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "timeBasedColoring": false,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total CPU Usage (non-idle)",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Total",
+                    "query": "100-(avg(rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=idle AND not cpu)))*100)",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": "https://metrics.wavefront.com/dashboard/collectd-host"
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total CPU Usage Breakdown",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "CPU Usage",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode!=idle AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": true,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Load",
+                "units": "",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Short term",
+                    "query": "ts(\"node.load1.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "Mid Term",
+                    "query": "ts(\"node.load5.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "Long Term",
+                    "query": "ts(\"node.load15.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": true,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Load scaled by number of CPUs",
+                "units": "",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Short term",
+                    "query": "ts(\"node.load1.gauge\", source=\"${host}\") / ${cpu_count}",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "Mid term",
+                    "query": "ts(\"node.load5.gauge\", source=\"${host}\") / ${cpu_count}",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "Long term",
+                    "query": "ts(\"node.load15.gauge\", source=\"${host}\") / ${cpu_count}",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "cpu_count",
+                    "query": "count(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\", mode=\"idle\"))",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "max": 100,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Idle per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Idle",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=idle AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Nice Usage per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Nice",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=nice AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "SoftIRQ Usage per CPU",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Soft IRQ",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=\"softirq\" AND not cpu))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Steal Usage per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 10,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "New Query",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=\"steal\" AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "System Usage per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 10,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "System",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=\"system\" AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "User per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 10,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "User",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=\"user\" AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "min": 0,
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Wait Usage per CPU",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 10,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Wait",
+                    "query": "rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=\"iowait\" AND not cpu))*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Load Std Deviation",
+                "units": "std dev",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 15,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "load",
+                    "query": "ts(\"node.load5.gauge\", source=\"${host}\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "New Query",
+                    "query": "(${load} - mavg(2h, ${load})) / sqrt(mvar(2h, ${load}))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total CPU Usage Std Deviation",
+                "units": "std dev",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 15,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "usage",
+                    "query": "100-(avg(rate(ts(\"node.cpu.seconds.total.counter\", source=\"${host}\" AND mode=idle AND not cpu)))*100)",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "New Query",
+                    "query": "(${usage} - mavg(2h, ${usage})) / sqrt(mvar(2h, ${usage}))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Memory",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Memory Use Graph",
+                "units": "bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "total_memory",
+                    "query": "ts(\"node.memory.MemTotal.bytes.gauge\", source=\"${host}\")-ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Memory use Table",
+                "units": "bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Memory Total",
+                    "query": "ts(\"node.memory.MemTotal.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "Memoty Available",
+                    "query": "ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "Memory In Use",
+                    "query": "ts(\"node.memory.MemTotal.bytes.gauge\", source=\"${host}\")-ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineValueColorMapApplyTo": "TEXT",
+                  "windowing": "full",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "% Used",
+                "units": "%",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "used",
+                    "query": "ts(\"node.memory.MemTotal.bytes.gauge\", source=\"${host}\")-ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "available",
+                    "query": "ts(\"node.memory.MemAvailable.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Swap Memory",
+                "units": "bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 5,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "swap total",
+                    "query": "ts(\"node.memory.SwapTotal.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "swap in use",
+                    "query": "ts(\"node.memory.SwapTotal.bytes.gauge\", source=\"${host}\")-ts(\"node.memory.SwapFree.bytes.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Storage",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Disk Free vs. Disk Used (Overall) Trend",
+                "units": "bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "available",
+                    "query": "sum(ts(\"node.filesystem.avail.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\"))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "used",
+                    "query": "${disk_size}-${available}",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "disk_size",
+                    "query": "sum(ts(\"node.filesystem.size.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\"))",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "fstype",
+                    "device",
+                    "mountpoint"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Latest disk Free (By Volume)",
+                "units": "bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Disk Free",
+                    "query": "ts(\"node.filesystem.avail.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "fstype",
+                    "device",
+                    "mountpoint"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Latest disk Used (By Volume)",
+                "units": "bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Disk Used",
+                    "query": "${disk_size}-${disk_available}",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "disk_size",
+                    "query": "ts(\"node.filesystem.size.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  },
+                  {
+                    "name": "disk_available",
+                    "query": "ts(\"node.filesystem.avail.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "fstype",
+                    "device",
+                    "mountpoint"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Disk Used Percentage (By Volume)",
+                "units": "%",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Disk Free",
+                    "query": "(${disk_size}-${disk_available})/${disk_size}*100",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "disk_size",
+                    "query": "ts(\"node.filesystem.size.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  },
+                  {
+                    "name": "disk_available",
+                    "query": "ts(\"node.filesystem.avail.bytes.gauge\", source=\"${host}\" AND fstype!=\"squashfs\")",
+                    "disabled": true,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "fstype",
+                    "device",
+                    "mountpoint"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": true,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Files By Volume",
+                "units": "",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Files",
+                    "query": "ts(\"node.filesystem.files.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "fstype",
+                    "device",
+                    "mountpoint"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "columnTags": "",
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": true,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Files - Free by Volume",
+                "units": "",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 5,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "inodes",
+                    "query": "ts(\"node.filesystem.files.free.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Network",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Bytes Sent",
+                "units": "Octets",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "bytes sent",
+                    "query": "rate(ts(\"node.network.transmit.bytes.total.counter\", source=\"${host}\"))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Bytes Received",
+                "units": "Octets",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "bytes recv",
+                    "query": "rate(ts(\"node.network.receive.bytes.total.counter\", source=\"${host}\"))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Bytes Sent Std Deviations",
+                "units": "Std Dev",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Std Dev",
+                    "query": "((rate(ts(\"node.network.transmit.bytes.total.counter\", source=\"${host}\")) as rt) - mavg(120m, $rt)) / sqrt(mvar(120, $rt))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Bytes Received Std Deviations",
+                "units": "Std Dev",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 5,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Std Dev",
+                    "query": "((rate(ts(\"node.network.receive.bytes.total.counter\", source=\"${host}\")) as rt) - mavg(120m, $rt)) / sqrt(mvar(120, $rt))",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Misc",
+        "rows": [
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Processes Running",
+                "units": "#",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Processes Zombies",
+                    "query": "ts(\"node.procs.running.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "100",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineValueColorMapApplyTo": "TEXT",
+                  "windowing": "full",
+                  "sparklineSize": "BOTTOM",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Total Processes",
+                "units": "",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "Source",
+                    "sparklineDisplaySubLabel": "Total Processes"
+                  },
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "ts(\"node.procs.running.gauge\", source=\"${host}\")",
+                    "disabled": false,
+                    "secondaryAxis": false,
+                    "querybuilderEnabled": false,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              },
+              {
+                "chartSettings": {
+                  "plainMarkdownContent": "This dashboard shows detailed system metrics for **${host}**. Use the dropdown menu at the top to select a different host. To add a new host, install an agent on the host using a [host integration](/integrations) for your operating system.",
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "markdown-widget",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Host Dashboard",
+                "units": "Units",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 0,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "",
+                    "scatterPlotSource": "Y",
+                    "querybuilderSerialization": "{\"_v\":1,\"metric\":\"\",\"filters\":[[],\"and\"],\"functions\":[]}",
+                    "querybuilderEnabled": true,
+                    "sourceDescription": ""
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      }
+    ],
+    "parameterDetails": {
+      "host": {
+        "tagsBlackListRegex": "",
+        "parameterType": "DYNAMIC",
+        "tagKey": "nodename",
+        "queryValue": "ts(node.uname.info.gauge)",
+        "order": 1,
+        "defaultValue": "Label_2",
+        "hideFromView": false,
+        "value": "2ab6bd8c-9709-4ec6-9075-cc737fb44608",
+        "label": "Host",
+        "dynamicFieldType": "TAG_KEY",
+        "valuesToReadableStrings": {
+          "Label_2": "01dac7c1-f27e-439f-8bce-c01b199db266",
+          "Label_3": "04de19ae-ad07-4da4-9430-0f17b87f9ad7",
+          "Label_4": "2ab6bd8c-9709-4ec6-9075-cc737fb44608",
+          "Label_5": "31a729c4-b04e-433b-a0f4-28dc6c9e86c7",
+          "Label_10": "7ebd7148-4225-4822-a178-39712fd9497f",
+          "Label_6": "3844219f-eb7a-489e-9eca-5acdc8d32cde",
+          "Label_11": "cec38bc6-1bab-4f02-93b5-01352f85f27e",
+          "Label_7": "66a2bb43-a690-47e0-b980-d2027c50b7bd",
+          "Label_12": "e9906da9-a1e6-4984-a6d1-f65eec369170",
+          "Label_8": "76587b97-f4cb-47a9-83f7-482eb85ac466",
+          "Label_13": "f3a32eab-b954-4b64-8e2a-7894f556b1b1",
+          "Label_9": "76a02db8-e70f-417e-bc10-608ba4dac39c",
+          "Label_14": "f95da985-c2ea-4b77-93ef-f7703356a4e5",
+          "Label_15": "ff711502-21d5-40ae-b35c-c522d686e4ed",
+          "Label": "*"
+        },
+        "selectedLabel": "Label_4"
+      }
+    }
+  }
