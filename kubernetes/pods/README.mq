@@ -1,0 +1,21 @@
+# Kubernetes Pods notes
+
+## Sample kubectl commands
+
+### Pods and Deployments
+
+`kubectl run nginx --image=nginx --restart=Never`
+
+`kubectl run busybox --image=busybox --restart=Never -- sleep 3600`
+
+### Service 
+`kubectl port-forward pod/my-pod 8888:80`
+
+### Secrets
+`kubectl create secret docker-registry azurecr --docker-server=lsilva.azurecr.io --docker-username=lsilva --docker-password=my-password --docker-email=lsilva@pivotal.io -n my-ns`
+
+`kubectl create secret generic redis-server --from-literal=password=my-password -n my-ns`
+
+### Bookmarks
+
+- [150 kubectl commands for the CKA exam](https://medium.com/bb-tutorials-and-thoughts/practice-enough-with-these-questions-for-the-ckad-exam-2f42d1228552)
