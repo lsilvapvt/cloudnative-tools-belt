@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: residential-quote
+  name: residential-quote-deployment
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: residential-quote
+  template:
+    metadata:
+      labels:
+        app: residential-quote
+    spec:
+      containers:
+      - image: nginx
+        name: residential-quote-pod
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Residential Insurance - Quotes - $MYIP !</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: residential-quote
+  name: residential-quote-svc
+  namespace: dev
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: residential-quote
+  type: LoadBalancer          

@@ -1,0 +1,77 @@
+# https://docs.wavefront.com/proxies_configuring.html#configuring-a-proxy-in-a-container
+# https://docs.wavefront.com/integrations_log_data.html
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: wavefront-proxy-syslog
+  name: wavefront-proxy-syslog
+  namespace: syslog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wavefront-proxy-syslog
+  template:
+    metadata:
+      labels:
+        app: wavefront-proxy-syslog
+    spec:
+      containers:
+      - image: wavefronthq/proxy:latest
+        name: wavefront-proxy-syslog-pod
+        env:
+        - name: WAVEFRONT_URL
+          value: "https://vmware.wavefront.com/api/"
+        - name: WAVEFRONT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: wavefront-token
+              key: token
+              # kubectl create secret generic wavefront-token --from-literal=token=WAVEFRONT_TOKEN_GOES_HERE -n syslog
+        - name: JAVA_HEAP_USAGE
+          value: "512m"     
+        - name: WAVEFRONT_PROXY_ARGS
+          value: "--pushRateLimit 1000 --filebeatPort 5044 --rawLogsPort 5045 logsIngestionConfigFile /etc/wavefront/wavefront-proxy/logsingestion.yaml --hostname lsilva-syslog "               
+        lifecycle:
+          postStart:
+            exec:
+              command: 
+              - /bin/sh
+              - -c
+              - |
+                cat <<EOT >> /etc/wavefront/wavefront-proxy/logsingestion.yaml
+                aggregationIntervalSeconds: 5  
+                counters:
+                  - pattern: '%{COMBINEDAPACHELOG}'
+                    metricName: 'combined_apache_log_lines'
+                gauges:
+                  - pattern: '%{COMBINEDAPACHELOG}'
+                    metricName: 'apacheStatus'
+                    valueLabel: 'response'
+                histograms:
+                  - pattern: '%{COMBINEDAPACHELOG}'
+                    metricName: 'responseBytes'
+                    valueLabel: 'bytes'
+                  - pattern: 'My operation took %{NUMBER:duration} seconds'
+                    metricName: 'myOperationDuration'
+                    valueLabel: 'duration'
+                EOT
+                # /etc/wavefront/wavefront-proxy/logsIngestion.yaml
+                # Docs: https://docs.wavefront.com/integrations_log_data.html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wavefront-proxy-syslog
+  name: wavefront-proxy-syslog-svc
+  namespace: syslog
+spec:
+  ports:
+  - port: 2878
+    protocol: TCP
+  selector:
+    app: wavefront-proxy-syslog
+  type: LoadBalancer          

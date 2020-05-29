@@ -1,4 +1,4 @@
-## Sample of self-hosted Azure DevOps 
+## Sample of self-hosted Azure DevOps agent as a container
 
 The files in this folder were created after following instructions on how to run a self-hosted Linux Azure DevOps agent with Docker from this article:
 

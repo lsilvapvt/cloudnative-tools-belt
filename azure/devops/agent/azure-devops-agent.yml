@@ -19,8 +19,10 @@ spec:
         env:
         - name: AZP_URL
           value: https://dev.azure.com/lsilva0356
+        - name: AZP_POOL
+          value: Default
         - name: AZP_AGENT_NAME
-          value: my-k8s-devops-agent
+          value: k8s-agent-pks-azurearc
         - name: AZP_TOKEN
           valueFrom:
             secretKeyRef:

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: insurance-greeting
+  name: insurance-greeting
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: insurance-greeting
+  template:
+    metadata:
+      labels:
+        app: insurance-greeting
+    spec:
+      containers:
+      - image: nginx
+        name: insurance-greeting-pod
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh","-c","export MYIP=$(hostname -I);echo \"<!DOCTYPE html><html><body><h1>Welcome to the Insurance Namespace  - $MYIP !</h1></body></html>\" > /usr/share/nginx/html/index.html;"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: insurance-greeting
+  name: insurance-greeting-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: insurance-greeting
+  type: LoadBalancer          
