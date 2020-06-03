@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azuredevopsagent
+  namespace: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azuredevopsagent
+  template:
+    metadata:
+      labels:
+        app: azuredevopsagent
+    spec:
+      containers:
+      - name: azuredevopsagent
+        image: silval/azure-devops-agent:latest
+        env:
+        - name: AZP_URL
+          value: https://dev.azure.com/lsilva0356
+        - name: AZP_POOL
+          value: Default
+        - name: AZP_AGENT_NAME
+          value: k8s-agent-tkg-azurearc
+        - name: AZP_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: azuredevops
+              key: AZP_TOKEN 
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-socket-volume
+        - name: harbor-ca
+          mountPath: /etc/ssl/certs/harbor-ca.pem
+          subPath: harbor-ca.pem
+          readOnly: false
+        securityContext:
+          privileged: true     
+      volumes:
+        - name: docker-socket-volume
+          hostPath:
+            path: /var/run/docker.sock
+            type: File              
+        - name: harbor-ca
+          configMap:
+            name: ca-pemstore
+            items:
+            - key: harbor-ca.pem
+              path: harbor-ca.pem            

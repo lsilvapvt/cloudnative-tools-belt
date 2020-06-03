@@ -19,3 +19,10 @@ kubectl vsphere login \
   -u administrator@vsphere.local \
   --insecure-skip-tls-verify
 ```
+### Setting the default storage class for a cluster
+
+Before installing helm charts, it helps to make sure that you have a default storage class setup for your cluster and targeted namespace:
+
+`kubectl patch storageclass pacific-gold-storage-policy -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}' -n my-namespace`
+
+---
