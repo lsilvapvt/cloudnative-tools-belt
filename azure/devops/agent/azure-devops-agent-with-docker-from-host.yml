@@ -28,3 +28,13 @@ spec:
             secretKeyRef:
               name: azuredevops
               key: AZP_TOKEN 
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-socket-volume
+        securityContext:
+          privileged: true              
+      volumes:
+        - name: docker-socket-volume
+          hostPath:
+            path: /var/run/docker.sock
+            type: File              

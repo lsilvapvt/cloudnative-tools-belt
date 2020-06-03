@@ -28,3 +28,17 @@ spec:
             secretKeyRef:
               name: azuredevops
               key: AZP_TOKEN 
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375              
+      - name: dind
+        image: docker:18.06.3-dind
+        ## for 19.03+ versions, TLS is enabled by default and needs to be configured for docker daemon connectivity to work
+        ## DOCKER_TLS_CERTDIR - see https://hub.docker.com/_/docker?tab=description&page=3&name=dind
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: dind-storage
+            mountPath: /var/lib/docker                       
+      volumes:
+      - name: dind-storage
+        emptyDir: {}             
