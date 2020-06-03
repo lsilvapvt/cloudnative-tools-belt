@@ -52,7 +52,7 @@ Thus, for that scenario, instead of `azure-devops-agent.yml`, use on of the two 
 
 - [`azure-devops-agent-with-docker-from-host.yml`](./azure-devops-agent-with-docker-from-host.yml): "Docker-out-of-Docker" approach, it runs with the Docker daemon from the host worker VM. 
 
-For details on both approach, comparisons and the pros and cons of each approach, see this [article](https://medium.com/hootsuite-engineering/building-docker-images-inside-kubernetes-42c6af855f25).
+For details, comparisons and the pros and cons of each approach, see this [article](https://medium.com/hootsuite-engineering/building-docker-images-inside-kubernetes-42c6af855f25).
 
 ---
 
