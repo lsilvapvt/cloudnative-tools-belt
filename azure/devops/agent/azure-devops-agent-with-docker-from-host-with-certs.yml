@@ -1,3 +1,7 @@
+# Trying to add CA root certo to VM, but did not yet working. Still investigaging it.
+# https://medium.com/@paraspatidar/add-self-signed-or-ca-root-certificate-in-kubernetes-pod-ca-root-certificate-store-cb7863cb3f87
+# Create a config map for the root cert:
+# kubectl create configmap ca-pemstore --from-file=/Users/lmpsilva/Downloads/harbor-ca.pem -n devops
 apiVersion: apps/v1
 kind: Deployment
 metadata:
