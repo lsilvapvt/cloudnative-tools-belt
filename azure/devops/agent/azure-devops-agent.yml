@@ -23,6 +23,7 @@ spec:
           value: Default
         - name: AZP_AGENT_NAME
           value: k8s-agent-tkg-azurearc
+          # the pod ID will be used as agent name when AZP_AGENT_NAME is ommitted/commented out
         - name: AZP_TOKEN
           valueFrom:
             secretKeyRef:
