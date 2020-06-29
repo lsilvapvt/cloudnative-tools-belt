@@ -1,0 +1,2797 @@
+{
+    "name": "Acme-Bank-Clusters",
+    "url": "Acme-Bank-Clusters",
+    "eventFilterType": "BYCHART",
+    "displayDescription": false,
+    "displaySectionTableOfContents": true,
+    "displayQueryParameters": true,
+    "sections": [
+      {
+        "name": "Kubernetes Clusters",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": true,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "nodemap",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Clusters",
+                "anomalySampleSize": "8",
+                "units": "Units",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLinks": {
+                    "*": {
+                      "destination": "/dashboards/integration-kubernetes-pods",
+                      "tags": {
+                        "cluster_name": "cluster"
+                      },
+                      "variables": {
+                        "pods_metric": "clusters_metric"
+                      }
+                    }
+                  },
+                  "colorMap": {
+                    "colors": [
+                      "#007000",
+                      "#ffbf00",
+                      "#d2222d"
+                    ],
+                    "values": [
+                      1000,
+                      20000
+                    ]
+                  },
+                  "nodeMap": {
+                    "nodeTitleTag": "cluster",
+                    "params": {
+                      "groupBy": "clusters_group_by",
+                      "metric": "clusters_metric"
+                    }
+                  },
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 10,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "CPU Usage",
+                    "query": "sum(ts(\"kubernetes.cluster.cpu.usage_rate\" AND org=acme-bank, cluster=\"${cluster_name}\"), cluster)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "disabled": false
+                  },
+                  {
+                    "name": "Memory Usage",
+                    "query": "sum(ts(\"kubernetes.cluster.memory.usage\" AND org=acme-bank, cluster=\"${cluster_name}\"), cluster)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "disabled": true
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "chartSettings": {
+                  "plainMarkdownContent": "[Nodes](/dashboards/integration-kubernetes-nodes) \\\n[Pods](/dashboards/integration-kubernetes-pods) \\\n[Containers](/dashboards/integration-kubernetes-containers)",
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "status-list",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "name": "Kubernetes Objects",
+                "units": "Units",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLinks": {
+                    "nodes": {
+                      "destination": "/dashboards/integration-kubernetes-nodes",
+                      "variables": {
+                        "cluster_name": "cluster_name"
+                      }
+                    },
+                    "pods": {
+                      "destination": "/dashboards/integration-kubernetes-pods",
+                      "variables": {
+                        "cluster_name": "cluster_name"
+                      }
+                    },
+                    "containers": {
+                      "destination": "/dashboards/integration-kubernetes-containers",
+                      "variables": {
+                        "cluster_name": "cluster_name"
+                      }
+                    }
+                  },
+                  "statusList": {
+                    "primaryPointTag": "k8s-object",
+                    "textAlignment": "right",
+                    "list": {
+                      "nodes": {
+                        "primaryText": "Nodes"
+                      },
+                      "pods": {
+                        "primaryText": "Pods"
+                      },
+                      "containers": {
+                        "primaryText": "Containers"
+                      }
+                    }
+                  },
+                  "colorMap": {
+                    "colors": [
+                      "transparent"
+                    ]
+                  },
+                  "dashboardLayout": {
+                    "x": 10,
+                    "y": 0,
+                    "w": 2,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "collect(taggify(1, k8s-object, \"nodes\"), taggify(1, k8s-object, \"pods\"), taggify(1, k8s-object, \"containers\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Summary",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "NONE",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Nodes"
+                  },
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": true
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "count(align(60s, mean, mcount(5m, ts(\"kubernetes.node.memory.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": true,
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "NONE",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1
+                  ],
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Namespaces"
+                  },
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 0,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": true
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "count(align(60s, mean, count(ts(\"kubernetes.ns.memory.usage\" and org=\"acme-bank\" and cluster=\"${cluster_name}\"), cluster, namespace_name)))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": true,
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "NONE",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1
+                  ],
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Pods"
+                  },
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": true
+                },
+                "sources": [
+                  {
+                    "name": "pod_count",
+                    "query": "sum(align(60s, mean, msum(60s, ts(\"kubernetes.cluster.pod.count\" and org=\"acme-bank\" and cluster=\"${cluster_name}\"))))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "NONE",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Pod Containers"
+                  },
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 0,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": true
+                },
+                "sources": [
+                  {
+                    "name": "container_count",
+                    "query": "sum(align(60s, msum(60s, ts(\"kubernetes.cluster.pod_container.count\" and org=\"acme-bank\" and cluster=\"${cluster_name}\"))))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 80
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineDisplayPostfix": "%",
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)",
+                    "rgba(245,118,0,1)",
+                    "rgba(245,79,71,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1,
+                    80,
+                    90
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Node Memory Utilization Avg"
+                  },
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 4,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "avg(align(60s, mean, ts(\"kubernetes.node.memory.node_utilization\" and org=\"acme-bank\" , cluster=\"${cluster_name}\"))) * 100",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 0,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": "B",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Cluster Memory Usage"
+                  },
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 4,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "sum(ts(\"kubernetes.cluster.memory.usage\" and org=\"acme-bank\" , cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineDisplayPostfix": "%",
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)",
+                    "rgba(245,118,0,1)",
+                    "rgba(245,79,71,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1,
+                    80,
+                    90
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Node CPU Utilization Avg"
+                  },
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 4,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "avg(align(60s, mean, ts(\"kubernetes.node.cpu.node_utilization\" and org=\"acme-bank\" , cluster=\"${cluster_name}\"))) * 100",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "sparklineDisplayFontSize": "150",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineDisplayPostfix": "%",
+                  "sparklineValueColorMapColors": [
+                    "rgba(73,175,217,1)",
+                    "rgba(73,175,217,1)",
+                    "rgba(245,118,0,1)",
+                    "rgba(245,79,71,1)"
+                  ],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "sparklineFillColor": "rgba(0,0,0,0.2)",
+                  "sparklineValueColorMapApplyTo": "BACKGROUND",
+                  "windowing": "full",
+                  "sparklineDisplayColor": "rgba(250,250,250,1)",
+                  "sparklineSize": "BACKGROUND",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [
+                    1,
+                    80,
+                    90
+                  ],
+                  "y1Units": "",
+                  "sparklineDisplayValueType": "VALUE",
+                  "type": "sparkline",
+                  "y1UnitAutoscaling": false,
+                  "sparklineValueTextMapText": [
+                    "new highest"
+                  ],
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "sparklineDisplayHorizontalPosition": "MIDDLE",
+                  "sparklineLineColor": "rgba(0,0,0,0.3)",
+                  "sparklineDecimalPrecision": 1,
+                  "autoColumnTags": false,
+                  "numTags": 4
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "",
+                "anomalySampleSize": "8",
+                "units": " ",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "singleStat": {
+                    "sparklineDisplayLabel": "A",
+                    "sparklineDisplaySubLabel": "Node Storage Utilization Avg"
+                  },
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 4,
+                    "w": 3,
+                    "h": 4
+                  },
+                  "y0ScaleDecimal": false
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "ts(\"kubernetes.node.filesystem.usage\" and org=\"acme-bank\" , cluster=\"${cluster_name}\") / ts(\"kubernetes.node.filesystem.limit\", cluster=\"${cluster_name}\")",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": true
+                  },
+                  {
+                    "name": "A",
+                    "query": "avg(align(60s, mean, ${Source})) * 100",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 80
+          }
+        ]
+      },
+      {
+        "name": "Namespaces",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "namespace_name"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": true,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": true,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Pod Count By Namespace",
+                "anomalySampleSize": "8",
+                "units": "running pods",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "sum(align(60s, mean, ts(\"kubernetes.ns.pod.count\" and org=\"acme-bank\" , cluster=\"${cluster_name}\")), namespace_name)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "namespace_name"
+                  ],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Pod Container Count By Namespace",
+                "anomalySampleSize": "8",
+                "units": "running containers",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "sum(align(60s, mean, ts(\"kubernetes.ns.pod_container.count\" and org=\"acme-bank\", cluster=\"${cluster_name}\")), namespace_name)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "sparklineValueColorMapColors": [],
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "sparklineValueColorMapValuesV2": [],
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "CPU Usage by Namespace",
+                "anomalySampleSize": "8",
+                "units": "millicores",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "ts(\"kubernetes.ns.cpu.usage_rate\" and org=\"acme-bank\" , cluster=\"${cluster_name}\")",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "namespace_name"
+                  ],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "stacked-area",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Usage by Namespace",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "ts(\"kubernetes.ns.memory.usage\" and org=\"acme-bank\" , cluster=\"${cluster_name}\")",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Nodes",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "expectedDataSpacing": 120,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "nodename"
+                  ],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "CPU Utilization by Node",
+                "anomalySampleSize": "8",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.cpu.node_utilization\" and org=\"acme-bank\", cluster=\"${cluster_name}\") * 100)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  },
+                  {
+                    "name": "New Query",
+                    "query": "rate(ts(\"kubernetes.node.cpu.usage\", cluster=\"${cluster_name}\")) ",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": true
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "expectedDataSpacing": 120,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "nodename"
+                  ],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "CPU Usage Rate by Node",
+                "anomalySampleSize": "8",
+                "units": "millicores",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "New Query",
+                    "query": "limit(250, ts(\"kubernetes.node.cpu.usage_rate\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "nodename"
+                  ],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Utilization by Node",
+                "anomalySampleSize": "8",
+                "units": "%",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.memory.working_set\" and org=\"acme-bank\", cluster=\"${cluster_name}\") / ts(\"kubernetes.node.memory.node_capacity\" and org=\"acme-bank\", cluster=\"${cluster_name}\") * 100)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "nodename"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Usage by Node",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 0,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.memory.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Bytes Received Rate By Node",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, rate(ts(\"kubernetes.node.network.rx\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Networking Errors By Node",
+                "anomalySampleSize": "8",
+                "units": "error rate",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 3,
+                    "y": 5,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "rx_errors",
+                    "query": "limit(250, rate(ts(\"kubernetes.node.network.rx_errors\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  },
+                  {
+                    "name": "tx_errors",
+                    "query": "limit(250, rate(ts(\"kubernetes.node.network.tx_errors\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Bytes Transferred Rate By Node",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 5,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, rate(ts(\"kubernetes.node.network.tx\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "nodename"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "Uptime By Node",
+                "anomalySampleSize": "8",
+                "units": "Minutes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 9,
+                    "y": 5,
+                    "w": 3,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.uptime\" and org=\"acme-bank\", cluster=\"${cluster_name}\") / 60000)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "nodename",
+                    "resource_id"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "File System Usage By Node",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.filesystem.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "nodename",
+                    "resource_id"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "File System - Available Storage by Node",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.filesystem.limit\" and org=\"acme-bank\", cluster=\"${cluster_name}\") - ts(\"kubernetes.node.filesystem.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "nodename",
+                    "resource_id"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "File System - Usage %",
+                "anomalySampleSize": "8",
+                "units": "%",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.node.filesystem.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\")  / ts(\"kubernetes.node.filesystem.limit\" and org=\"acme-bank\", cluster=\"${cluster_name}\") * 100)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Pods",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "CPU Usage Rate By POD",
+                "anomalySampleSize": "8",
+                "units": "millicores",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod.cpu.usage_rate\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Page Faults Rate By Pod",
+                "anomalySampleSize": "8",
+                "units": "page fault rate",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod.memory.page_faults_rate\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "pod_name",
+                    "namespace_name",
+                    "nodename"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Memory Usage by Pod",
+                "units": "B",
+                "summarization": "LAST",
+                "base": 1,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 12,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod.memory.usage\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": ""
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Bytes Received Rate By Pod",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, rate(ts(\"kubernetes.pod.network.rx\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Bytes Transferred Rate By Pod",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 4,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, rate(ts(\"kubernetes.pod.network.tx\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Networking Errors By Pod",
+                "anomalySampleSize": "8",
+                "units": "Errors",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 8,
+                    "y": 10,
+                    "w": 4,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "rx_errors",
+                    "query": "limit(250, rate(ts(\"kubernetes.pod.network.rx_errors\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  },
+                  {
+                    "name": "tx_errors",
+                    "query": "limit(250, rate(ts(\"kubernetes.pod.network.tx_errors\" and org=\"acme-bank\", cluster=\"${cluster_name}\")))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "pod_name",
+                    "namespace_name",
+                    "nodename",
+                    "resource_id"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "File System Usage By Pod",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 15,
+                    "w": 12,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod.filesystem.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          }
+        ]
+      },
+      {
+        "name": "Pod Containers",
+        "rows": [
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "CPU Usage Rate By Pod Container",
+                "anomalySampleSize": "8",
+                "units": "millicores",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod_container.cpu.usage_rate\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              },
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "lineType": "linear",
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "type": "line",
+                  "y1UnitAutoscaling": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": false,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Page Faults Rate By Pod Container",
+                "anomalySampleSize": "8",
+                "units": "page fault rate",
+                "summarization": "MEAN",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 6,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod_container.memory.page_faults_rate\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "stackType": "zero",
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "namespace_name",
+                    "pod_name",
+                    "nodename",
+                    "container_name"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "Memory Usage by Pod Container",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 5,
+                    "w": 12,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod_container.memory.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": true,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "pod_name",
+                    "namespace_name",
+                    "nodename",
+                    "resource_id",
+                    "container_name"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "last",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "File System Usage By Pod Container",
+                "anomalySampleSize": "8",
+                "units": "Bytes",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 10,
+                    "w": 12,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod_container.filesystem.usage\" and org=\"acme-bank\", cluster=\"${cluster_name}\"))",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "anomalySeverity": "medium",
+                "chartSettings": {
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [
+                    "cluster",
+                    "namespace_name",
+                    "nodename",
+                    "pod_name",
+                    "container_name"
+                  ],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": true,
+                  "type": "table",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "custom",
+                  "fixedLegendUseRawStats": false,
+                  "y0UnitAutoscaling": true,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "displayConfidenceBounds": false,
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "filterOutNonAnomalies": false,
+                "name": "Uptime By Pod Container",
+                "anomalySampleSize": "8",
+                "units": "min",
+                "summarization": "LAST",
+                "base": 0,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 15,
+                    "w": 12,
+                    "h": 5
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "Source",
+                    "query": "limit(250, ts(\"kubernetes.pod_container.uptime\"  and org=\"acme-bank\", cluster=\"${cluster_name}\") / 60000)",
+                    "querybuilderEnabled": false,
+                    "secondaryAxis": false,
+                    "sourceDescription": "",
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "anomalyType": "both"
+              }
+            ],
+            "heightFactor": 100
+          },
+          {
+            "charts": [
+              {
+                "chartSettings": {
+                  "plainMarkdownContent": "**Note:** *This dashboard is provided by Wavefront. It's not directly editable, which lets us deploy new versions without affecting any of your customizations. If you want to make your own version, click ![pencil](https://s3-us-west-2.amazonaws.com/wavefront-img/pen-icon.png) **> Clone** and give the dashboard a new URL*.",
+                  "y1ScaleSIBy1024": false,
+                  "fixedLegendEnabled": false,
+                  "fixedLegendFilterField": "CURRENT",
+                  "y0ScaleSIBy1024": false,
+                  "fixedLegendFilterLimit": 5,
+                  "fixedLegendPosition": "RIGHT",
+                  "customTags": [],
+                  "showRawValues": false,
+                  "lineType": "linear",
+                  "showHosts": false,
+                  "windowSize": 5,
+                  "groupBySource": false,
+                  "windowing": "full",
+                  "fixedLegendFilterSort": "TOP",
+                  "y1Units": "",
+                  "sortValuesDescending": false,
+                  "type": "markdown-widget",
+                  "y1UnitAutoscaling": false,
+                  "showLabels": false,
+                  "tagMode": "all",
+                  "fixedLegendUseRawStats": false,
+                  "fixedLegendDisplayStats": [
+                    "CURRENT"
+                  ],
+                  "autoColumnTags": false,
+                  "numTags": 4,
+                  "sparklineDisplayColor": null,
+                  "sparklineLineColor": null,
+                  "sparklineFillColor": null
+                },
+                "includeObsoleteMetrics": false,
+                "interpolatePoints": true,
+                "name": "Make your own version...",
+                "summarization": "MEAN",
+                "base": 1,
+                "chartAttributes": {
+                  "dashboardLayout": {
+                    "x": 0,
+                    "y": 20,
+                    "w": 12,
+                    "h": 3
+                  }
+                },
+                "sources": [
+                  {
+                    "name": "A",
+                    "query": "",
+                    "querybuilderSerialization": "{\"metric\":\"ts()\",\"filters\":[[],\"and\"],\"functions\":[],\"_v\":1}",
+                    "querybuilderEnabled": true,
+                    "secondaryAxis": false,
+                    "disabled": false
+                  }
+                ],
+                "noDefaultEvents": false,
+                "description": ""
+              }
+            ],
+            "heightFactor": 50
+          }
+        ]
+      }
+    ],
+    "parameterDetails": {
+      "clusters_group_by": {
+        "parameterType": "SIMPLE",
+        "order": 2,
+        "defaultValue": "Label",
+        "hideFromView": true,
+        "label": "clusters_group_by",
+        "valuesToReadableStrings": {
+          "Label": "none"
+        }
+      },
+      "cluster_name": {
+        "tagsBlackListRegex": "",
+        "parameterType": "DYNAMIC",
+        "tagKey": "cluster",
+        "queryValue": "collect(max(ts(\"kubernetes.cluster.cpu.limit\" and org=\"acme-bank\"), cluster), taggify(1, cluster, \"*\"))",
+        "order": 1,
+        "defaultValue": "Label",
+        "hideFromView": false,
+        "value": "*",
+        "label": "cluster",
+        "dynamicFieldType": "TAG_KEY",
+        "valuesToReadableStrings": {
+          "Label": "*",
+          "Label_2": "acme-bank-services-aks",
+          "Label_3": "acme-bank-services-tkg"
+        },
+        "selectedLabel": "Label"
+      },
+      "clusters_metric": {
+        "parameterType": "SIMPLE",
+        "order": 3,
+        "defaultValue": "Label",
+        "hideFromView": true,
+        "label": "clusters_metric",
+        "valuesToReadableStrings": {
+          "Label": "CPU Usage"
+        }
+      }
+    }
+  }

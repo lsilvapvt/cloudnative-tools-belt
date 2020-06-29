@@ -1,0 +1,4 @@
+collector:
+  ## Map of tags to apply to all metrics collected by the collector (default empty)
+  tags:
+    org: acme-bank
