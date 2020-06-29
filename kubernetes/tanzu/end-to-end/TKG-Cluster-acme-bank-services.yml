@@ -1,0 +1,21 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1               #TKG API endpoint
+kind: TanzuKubernetesCluster                            #required parameter
+metadata:
+  name: acme-bank-services-cluster                              #cluster name, user defined
+  namespace: acme-bank-services                         #supervisor namespace
+spec:
+  distribution:
+    version: v1.16                                      #resolved kubernetes version
+  topology:
+    controlPlane:
+      count: 1                                          #number of control plane nodes
+      class: best-effort-medium                         #vmclass for control plane nodes
+      storageClass: pacific-gold-storage-policy         #storageclass for control plane
+    workers:
+      count: 4                                          #number of worker nodes
+      class: best-effort-large                          #vmclass for worker nodes
+      storageClass: pacific-gold-storage-policy         #storageclass for worker nodes
+
+# Documentation: Virtual Machine Class Types for Tanzu Kubernetes Clusters      
+# https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-kubernetes/GUID-7351EEFF-4EF0-468F-A19B-6CEA40983D3D.html
+# https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-kubernetes/GUID-360B0288-1D24-4698-A9A0-5C5217C0BCCF.html
