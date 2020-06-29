@@ -1,0 +1,14 @@
+global:
+  storageClass: "pacific-gold-storage-policy"
+service:
+  type: LoadBalancer  
+  tls:
+    commonName: "harbor.haas-451.pez.pivotal.io"
+ingress:
+  hosts:
+    core: "harbor.haas-451.pez.pivotal.io"
+    notary: "harbor.haas-451.pez.pivotal.io"
+externalURL: "https://harbor.haas-451.pez.pivotal.io"
+notary:
+  enabled: true
+
