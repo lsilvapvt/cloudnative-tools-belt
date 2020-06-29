@@ -1,4 +1,4 @@
-#Tanzu End-to-end demo notes
+# Tanzu End-to-end demo notes
 
 - Create AKS cluster in Azure (4 worker nodes)
 ```
@@ -20,9 +20,11 @@ kubectl config use-context acme-bank-services-cluster
 kubectl vsphere login   --tanzu-kubernetes-cluster-name devops-cluster   --server wcp.haas-451.pez.pivotal.io   -u administrator@vsphere.local   --insecure-skip-tls-verify
 kubectl vsphere login   --server wcp.haas-451.pez.pivotal.io   -u administrator@vsphere.local   --insecure-skip-tls-verify
 ```  
-  Make storage class default:  
+
+- Make cluster storage class default:  
   `kubectl patch storageclass pacific-gold-storage-policy -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'`  
-  Deploy an Azure DevOps agent to Kubernetes in TKG: https://github.com/lsilvapvt/pcf-tools-belt/tree/master/azure/devops/agent 
+
+- Deploy an Azure DevOps agent to Kubernetes in TKG: https://github.com/lsilvapvt/pcf-tools-belt/tree/master/azure/devops/agent 
 
 - Deploy Harbor as a Helm Chart to the DevOps agent   
   https://github.com/lsilvapvt/pcf-tools-belt/tree/master/kubernetes/helm/harbor  
