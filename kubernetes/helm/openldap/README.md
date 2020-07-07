@@ -6,7 +6,7 @@ Source: https://hub.kubeapps.com/charts/stable/openldap
 
 Sample install command:
 ```
-helm install openldap -n openldap stable/openldap --set service.type=LoadBalancer,persistence.storageClass=lun,customLdifFiles=./openldap_test_data.ldif
+helm install openldap -n openldap stable/openldap --set service.type=LoadBalancer,persistence.storageClass=lun
 ```
 
 ## Configure memberOf overlay module
@@ -39,7 +39,7 @@ SSH into the openldap pod and run the command below to configure the `memberOf` 
    You should see a successful return message such as `adding new entry "olcOverlay=memberof,olcDatabase={1}hdb,cn=config"`  
 
    Exit out of the ssh session with the openldap pod.  
-   
+
 
 4. Execute the following command to create test data:  
      
