@@ -50,7 +50,15 @@ This repository documents the options that I have found so far, from the most si
 
    <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="800" align="center"/>
 
+---
+### WIP
+
+**Object Storage servers/S3 buckets as a NFS service**
+
+- Note 1: on GCP, the techniques found to use a GCE persistent disk in both [article1](https://github.com/mappedinn/kubernetes-nfs-volume-on-gke) and [article2](https://medium.com/platformer-blog/nfs-persistent-volumes-with-kubernetes-a-case-study-ce1ed6e2c266) leverage the same approach as described in option 3 above, meaning by creating an NFS server that serves a common shared storage as a PV/PVC. 
+
+- Note 2: [CSI for S3](https://github.com/ctrox/csi-s3) along with a mounter such as [Goofys](https://github.com/kahing/goofys) might be a potential way to provide a shareable mount point backed by an object storage server, however when such server is not Amazon S3, compatibility and configuration of these open source packages have proved difficult so far. Moreover, there are disclaimers that such projects should be used with caution, as they have not yet been validated or benchmarked to run in production environments. 
 
 
-4. **S3 buckets as a NFS service**
+
 
