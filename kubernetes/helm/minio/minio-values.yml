@@ -1,0 +1,5 @@
+service:
+  type: LoadBalancer
+ingress:
+  hosts:
+  - name: minio.haas-442.pez.pivotal.io

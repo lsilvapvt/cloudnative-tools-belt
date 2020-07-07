@@ -1,0 +1,12 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: lun
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"  
+provisioner: kubernetes.io/vsphere-volume
+parameters:
+  datastore: LUN01
+  diskformat: thin
+  fstype: ext3
+reclaimPolicy: Retain

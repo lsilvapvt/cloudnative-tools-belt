@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-rwx-pv
+spec:
+  storageClassName: lun
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  vsphereVolume:
+    fsType: ext3
+    volumePath: '[LUN01] kubevols/marketing-dynamic-pvc-df42f119-4820-445e-b766-97526fa843b5.vmdk'    
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-rwx-pvc
+  annotations:
+    volume.beta.kubernetes.io/storage-class: lun 
+spec:
+  storageClassName: lun
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi 
