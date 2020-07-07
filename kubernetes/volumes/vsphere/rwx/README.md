@@ -46,6 +46,7 @@ This repository documents the options that I have found so far, from the most si
 
    Check the results by running `kubectl exec nfs-client-pod-1 -- ls -la /nfs` and verifying that there is one file written to the volume by each one of the two pods deployed.  
 
+   Note: the NFS Server Prosioner can also be [deployed as a Helm Chart](https://hub.kubeapps.com/charts/stable/nfs-server-provisioner) instead.  
 
    <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="800" align="center"/>
 
