@@ -6,7 +6,7 @@ Having said that, then what would be the alternatives to have a `ReadWriteMany` 
 
 A sample use-case for this requirement would be for a set of applications that are required to share the same mounted volume with read and write access, regardless of wheter or not they are deployed to the same Kubernetes cluster.
 
-<img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_app.png" alt="Application Architecture" width="200" align="center"/>
+<img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_app.png" alt="Application Architecture" width="300" align="center"/>
 
 This repository documents the options that I have found so far, from the most simple to the more complex and scalable solution.
 
@@ -24,7 +24,7 @@ This repository documents the options that I have found so far, from the most si
 
    The major 'con' for this option is the fact that pods can only run on the same node, which is very limited and not recommended for running Kubernetes workloads in production, where high availability of multiple pods deployed across nodes is desired.  
 
-   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option1.png" alt="Application Architecture" width="200" align="center"/>
+   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option1.png" alt="Application Architecture" width="400" align="center"/>
   
     
 
@@ -34,7 +34,7 @@ This repository documents the options that I have found so far, from the most si
      
    In summary, a nfs server pod is created and exposed as a ClusterIP service, so any pod running on that same cluster can mount the nfs drive with RWX access mode.  
 
-   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option2.png" alt="Application Architecture" width="200" align="center"/>
+   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option2.png" alt="Application Architecture" width="400" align="center"/>
 
 
 3. **External NFS Server as a service**
@@ -47,7 +47,7 @@ This repository documents the options that I have found so far, from the most si
    Check the results by running `kubectl exec nfs-client-pod-1 -- ls -la /nfs` and verifying that there is one file written to the volume by each one of the two pods deployed.  
 
 
-   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="200" align="center"/>
+   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="800" align="center"/>
 
 
 
