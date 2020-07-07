@@ -1,0 +1,45 @@
+dn: cn=adam,dc=example,dc=org
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: top
+cn: adam
+gidNumber: 100
+homeDirectory: /home/adam
+uid: adam
+uidNumber: 16859
+gecos: adam
+loginShell: /bin/bash
+shadowLastChange: 0
+shadowMax: 0
+shadowWarning: 0
+userPassword:: e1NTSEF9YnAzV0VhU01jVTF4T01XSldEbDZyQXA4S1lUR1NFdW8=
+
+dn: ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: groups
+
+dn: cn=admins,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+objectClass: top
+cn: admins
+member: cn=adam,dc=example,dc=org
+
+dn: cn=bob,dc=example,dc=org
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: top
+cn: bob
+gidNumber: 101
+homeDirectory: /home/bob
+uid: bob
+uidNumber: 16859
+gecos: bob
+loginShell: /bin/bash
+shadowLastChange: 0
+shadowMax: 0
+shadowWarning: 0
+userPassword:: e1NIQX1FUElQSFcvdi9rVXllOWhrUktVQ1doaHdiZWc9
+
