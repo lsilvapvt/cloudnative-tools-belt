@@ -6,6 +6,7 @@ Source: https://hub.kubeapps.com/charts/stable/openldap
 
 Sample install command:
 ```
+kubectl create namespace openldap
 helm install openldap -n openldap stable/openldap --set service.type=LoadBalancer,persistence.storageClass=lun
 ```
 
@@ -81,7 +82,7 @@ The LDAP server is now ready to be tested for authentication integration with ot
   Reference: [Harbor's LDAP auth configuration](https://goharbor.io/docs/1.10/administration/configure-authentication/ldap-auth/).  
 
 
-- Online LDAP test server: [link]](https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/)  
+- Online LDAP test server: [link](https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/)  
 
 ---
 
