@@ -4,7 +4,7 @@ According to [vSphere Storage for Kubernetes](https://vmware.github.io/vsphere-s
 
 Having said that, then what would be the alternatives to have a `ReadWriteMany` persistent volume in a vSphere Kubernetes environment?
 
-A sample use-case for this requirement would be for a set of applications that are required to share the same mounted volume with read and write access, regardless of wheter or not they are deployed to the same Kubernetes cluster.
+A sample use-case for this requirement would be for a set of applications that are required to share the same mounted volume with read and write access, regardless of whether or not they are deployed to the same Kubernetes cluster.
 
 <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_app.png" alt="Application Architecture" width="300" align="center"/>
 
