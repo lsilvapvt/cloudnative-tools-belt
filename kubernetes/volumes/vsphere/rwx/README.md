@@ -46,9 +46,19 @@ This repository documents the options that I have found so far, from the most si
 
    Check the results by running `kubectl exec nfs-client-pod-1 -- ls -la /nfs` and verifying that there is one file written to the volume by each one of the two pods deployed.  
 
-   Note: the NFS Server Prosioner can also be [deployed as a Helm Chart](https://hub.kubeapps.com/charts/stable/nfs-server-provisioner) instead.  
-
-   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="800" align="center"/>
+   Note: the NFS Server Provisioner can also be [deployed as a Helm Chart](https://hub.kubeapps.com/charts/stable/nfs-server-provisioner) instead.  
+   
+   <img src="https://github.com/lsilvapvt/pcf-tools-belt/raw/master/kubernetes/common/images/rwx_option3.png" alt="Application Architecture" width="800" align="center"/>  
+     
+   This approach also allows for VMs to mount the same volume provided by the NFS server, as long as they can route to the server's IP address.  
+   For example, in an Ubuntu VM:  
+   ```
+   sudo apt-get update && sudo apt-get install nfs-common
+   mkdir /home/ubuntu/exports
+   sudo mount <NFS-server-IP>:/exports /home/ubuntu/exports
+   ls -la /home/ubuntu/exports
+   df -h
+   ```
 
 ---
 ### WIP
@@ -59,6 +69,4 @@ This repository documents the options that I have found so far, from the most si
 
 - Note 2: [CSI for S3](https://github.com/ctrox/csi-s3) along with a mounter such as [Goofys](https://github.com/kahing/goofys) might be a potential way to provide a shareable mount point backed by an object storage server, however when such server is not Amazon S3, compatibility and configuration of these open source packages have proved difficult so far. Moreover, there are disclaimers that such projects should be used with caution, as they have not yet been validated or benchmarked to run in production environments. 
 
-
-
-
+- Note 3: [NFS Security](https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-E8741AED-B66C-457E-A906-322746D79CCD.html)
