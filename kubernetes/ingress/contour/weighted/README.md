@@ -32,24 +32,26 @@ After all objects are created successfully:
    `kubectl get svc -n projectcontour`
 
 1. create a DNS rule on your environment for your app root domain name with a wildcard that matches the one used in the ingress configuration.  
-  For example:  `*.go.haas-208.pez.pivotal.io   10.195.72.192`  
+  For example:  `*.tkg.haas-426.pez.pivotal.io   10.195.72.192`  
 
 1. curl the configured myapp path. You should see more of the v1.0 app responses since its route weith is higher (90%).
    For example:  
    ```
-   $ curl http://myapp.go.haas-208.pez.pivotal.io
+   $ curl http://myapp.tkg.haas-426.pez.pivotal.io
      <!DOCTYPE html><html><body><h1>v1.0! - 172.24.46.4</h1></body></html>
    ```
 
 1. Change the weight for each app version to 50/50 in `contour-ingress-weighted.yml`
    ```
    ...
-      - match: /
+   routes: 
+      - conditions:
+         - prefix: /  
          services:
-            - name: myapp-svc-10
+         - name: myapp-svc-10
             port: 80
             weight: 50
-            - name: myapp-svc-11
+         - name: myapp-svc-11
             port: 80
             weight: 50
    ```  
@@ -58,7 +60,7 @@ After all objects are created successfully:
 1. curl the configured myapp path again. You should see an even number of responses from each myapp version.
    For example:  
    ```
-   $ curl http://myapp.go.haas-208.pez.pivotal.io
+   $ curl http://myapp.tkg.haas-426.pez.pivotal.io
      <!DOCTYPE html><html><body><h1>v1.1! - 172.24.46.4</h1></body></html>
    ```
 

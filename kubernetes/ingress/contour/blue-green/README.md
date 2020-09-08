@@ -9,8 +9,6 @@ The sample configuration files in this repository deploy the following resources
 1. A `blue-svc` service for the pod in blue-deployment
 1. A `green-deployment` containing one `green-app` pod
 1. A `green-svc` service for the pods in green-deployment
-1. A `blue` ingress routing config for the `blue-svc` 
-1. A `green` ingress routing config for the `green-svc` 
 1. A `blue-green-root` ingress routing config that controls which service (blue or green) the app traffic will be routed to.
 
 To create the objects above in your Kubernetes cluster:
@@ -34,27 +32,35 @@ After all objects are created successfully:
    `kubectl get svc -n projectcontour`
 
 1. create a DNS rule on your environment for your app root domain name with a wildcard that matches the one used in the ingress configuration.  
-  For example:  `*.go.haas-208.pez.pivotal.io   10.195.72.192`  
+  For example:  `*.tkg.haas-426.pez.pivotal.io   10.195.72.192`  
 
 1. curl the configured app path.  
    For example:  
    ```
-   $ curl http://myservice.go.haas-208.pez.pivotal.io
+   $ curl http://myservice.tkg.haas-426.pez.pivotal.io
      <!DOCTYPE html><html><body><h1>BLUE! - 172.24.46.4</h1></body></html>
    ```
 
-1. Change the targeted service for the root ingress rounting to "Green" in `contour-ingress-bluegreeen.yml`
+1. Change the weight for the rounting to "Green" to 100 in `contour-ingress-bluegreeen.yml`
    ```
    ...
-     delegate:
-       name: green
+   routes: 
+      - conditions:
+         - prefix: /  
+         services:
+         - name: blue-svc
+            port: 80
+            weight: 0
+         - name: green-svc
+            port: 80
+            weight: 100  
    ```  
    and apply the changes `kubectl apply -f contour-ingress-bluegreen.yml`
 
 1. curl the configured app path again.  
    For example:  
    ```
-   $ curl http://myservice.go.haas-208.pez.pivotal.io
+   $ curl http://myservice.tkg.haas-426.pez.pivotal.io
      <!DOCTYPE html><html><body><h1>GREEN! - 172.24.46.4</h1></body></html>
    ```
 

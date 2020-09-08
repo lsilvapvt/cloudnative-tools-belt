@@ -1,17 +1,18 @@
-apiVersion: contour.heptio.com/v1beta1
-kind: IngressRoute
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
 metadata: 
   name: myapp-root
   namespace: weighted-routing
 spec: 
   virtualhost:
-    fqdn: myapp.go.haas-208.pez.pivotal.io
+    fqdn: myapp.tkg.haas-426.pez.pivotal.io
   routes: 
-  - match: /
-    services:
-      - name: myapp-svc-10
-        port: 80
-        weight: 90
-      - name: myapp-svc-11
-        port: 80
-        weight: 10    
+    - conditions:
+      - prefix: /  
+      services:
+        - name: myapp-svc-10
+          port: 90
+          weight: 50
+        - name: myapp-svc-11
+          port: 80
+          weight: 10
