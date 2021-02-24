@@ -13,7 +13,7 @@ This folder contains notes and files created for the experiment to run tcServer 
 
 ## Building a tcServer Container Image with Tanzu Build Service
 
-<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tbs.png" alt="Application Architecture" width="300" align="center"/>
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tbs.png" alt="Application Architecture" align="center"/>
 
 [tcServer documentation](https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-buildpack.html) highlights that VMware provides a Cloud Native Buildpack for tcServer.
 
@@ -54,7 +54,7 @@ This allows for the use of [Tanzu Build Service](https://docs.pivotal.io/build-s
 
 ## Building a tcServer Container Image with Dockerfiles
 
-<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-dockerfile.png" alt="Application Architecture" width="300" align="center"/>
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-dockerfile.png" alt="Application Architecture" align="center"/>
 
 I used this folder's [Dockerfile](./Dockerfile) to create my container.
 
@@ -84,7 +84,7 @@ Then I tagged the container and moved it to my public registry:
 
 ## Building a tcServer Container image with Dockerfiles and Tanzu Application Catalog
 
-<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tac.png" alt="Application Architecture" width="300" align="center"/>
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tac.png" alt="Application Architecture" align="center"/>
 
 ---
 
