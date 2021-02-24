@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tcserver-tomcat-sample-app-instance
+spec:
+  containers:
+  - name: vmware-pivotal-tcserver-standard-4-1-6
+    image: lsilva.azurecr.io/vmware-pivotal-tcserver-standard:4.1.6
+    imagePullPolicy: Always
+    volumeMounts:
+     - name: config-volume
+       mountPath: /instance-descriptor.yaml
+       subPath: tcserver-tomcat-sample-app-instance.yaml
+  imagePullSecrets:
+  - name: regcred
+  volumes:
+  - name: config-volume
+    configMap:
+      name: tcserver-tomcat-sample-app-instance
+  restartPolicy: Never
