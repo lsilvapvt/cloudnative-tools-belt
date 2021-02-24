@@ -2,9 +2,59 @@
 
 This folder contains notes and files created for the experiment to run tcServer as a container in a Kubernetes cluster by following the instructions from [tcServer documentation](https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-kubernetes-howto.html).
 
+#### Table of Contents
+
+- [Building a tcServer Container Image with Tanzu Build Service](#building-a-tcserver-container-image-with-tanzu-build-service)
+- [Building a tcServer Container Image with Dockerfiles](#building-a-tcserver-container-image-with-dockerfiles)
+- [Building a tcServer Container image with Dockerfiles and Tanzu Application Catalog](#building-a-tcserver-container-image-with-dockerfiles-and-tanzu-application-catalog)
+- [tcServer Container Image on Kubernetes](#tcserver-container-image-on-kubernetes)
+
 ---
 
+## Building a tcServer Container Image with Tanzu Build Service
+
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tbs.png" alt="Application Architecture" width="300" align="center"/>
+
+[tcServer documentation](https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-buildpack.html) highlights that VMware provides a Cloud Native Buildpack for tcServer.
+
+This allows for the use of [Tanzu Build Service](https://docs.pivotal.io/build-service/1-1/index.html) as a modern cloud native tool to create and manage container images for tcServer instances.
+
+1. Install Tanzu Build Service on a Kubernetes Cluster  
+   https://docs.pivotal.io/build-service/installing.html  
+
+2. Download the tcServer Cloud Native Buildpack  
+   https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-buildpack.html#downloading-the-vmware-tc-server-cloud-native-buildpack
+
+3. Tag and push the builpack to a container registry  
+   e.g. `docker tag vmware-tcserver-buildpack:4.1.7 lsilva.azurecr.io/vmware-tcserver-buildpack:4.1.7`
+
+4. If needed, add a secret for the container registry  
+   e.g. `kp secret create aks-registry-creds --registry lsilva.azurecr.io --registry-user USERID`
+
+5. Add the tcServer buildpack to the TBS cluster store object
+   e.g. `kp clusterstore add default -b lsilva.azurecr.io/vmware-tcserver-buildpack:4.1.7`
+
+6. Create a custom cluster builder that includes the tcServer buildpack (see [sample](./tcb-builder.yaml))   
+   e.g. `kubectl apply -f tcb-builder.yml`
+
+7. Create a build image, e.g.    
+    ```
+    kp image create myAppImage \
+    --tag lsilva.azurecr.io/myAppImage \
+    --cluster-builder tcserverbuilder \
+    --namespace default \
+    --git https://github.com/lsilvapvt/sample-tc1.git \
+    --git-revision main
+    ```
+
+8. Check the build logs and, if the build is successful, find the new image in the repository under the `tag` defined in the command above  
+   e.g. `kp build logs myAppImage -b 1`
+
+--- 
+
 ## Building a tcServer Container Image with Dockerfiles
+
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-dockerfile.png" alt="Application Architecture" width="300" align="center"/>
 
 I used this folder's [Dockerfile](./Dockerfile) to create my container.
 
@@ -32,7 +82,15 @@ Then I tagged the container and moved it to my public registry:
 
 ---
 
-## tcServer on Kubernetes - Cluster Configuration and Sample App Deployment
+## Building a tcServer Container image with Dockerfiles and Tanzu Application Catalog
+
+<img src="https://github.com/lsilvapvt/cloudnative-tools-belt/raw/master/kubernetes/common/images/tcserver-tac.png" alt="Application Architecture" width="300" align="center"/>
+
+---
+
+## tcServer Container Image on Kubernetes
+
+### Cluster Configuration and Sample App Deployment
 
 Create secret to access your registry, if needed:
 
@@ -50,43 +108,5 @@ Create config map with tc server instance information (see [sample yaml file](tc
 
 - `curl http://localhost:8080`
 
---- 
-
-## Building a tcServer Container Image with Tanzu Build Service
-
-[tcServer documentation](https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-buildpack.html) highlights that VMware provides a Cloud Native Buildpack for tcServer.
-
-This allows for the use of [Tanzu Build Service](https://docs.pivotal.io/build-service/1-1/index.html) as a modern cloud native tool to create and manage container images for tcServer instances.
-
-1. Install Tanzu Build Service on a Kubernetes Cluster  
-   https://docs.pivotal.io/build-service/installing.html  
-
-2. Download the tcServer Cloud Native Buildpack  
-   https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-buildpack.html#downloading-the-vmware-tc-server-cloud-native-buildpack
-
-3. Tag and push the builpack to a container registry
-   `docker tag vmware-tcserver-buildpack:4.1.7 lsilva.azurecr.io/vmware-tcserver-buildpack:4.1.7
-
-4. If needed, add a secret for the container registry  
-   `kp secret create aks-registry-creds --registry lsilva.azurecr.io --registry-user USERID`
-
-5. Add the tcServer buildpack to the TBS cluster store object
-   `kp clusterstore add default -b lsilva.azurecr.io/vmware-tcserver-buildpack:4.1.7`
-
-6. Create a custom cluster builder that includes the tcServer buildpack (see [sample](./tcb-builder.yaml))   
-   `kubectl apply -f tcb-builder.yml`
-
-7. Create a build image  
-  ```
-  kp image create myAppImage \
-  --tag lsilva.azurecr.io/myAppImage \
-  --cluster-builder tcserverbuilder \
-  --namespace default \
-  --git https://github.com/lsilvapvt/sample-tc1.git \
-  --git-revision main
-  ```
-
-8. Check the build logs and, if the build is successful, find the new image in the repository under the `tag` defined in the command above  
-   `kp build logs myAppImage -b 1`
-
 ---
+
