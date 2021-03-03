@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tcs-app1
+  name: tcs-app1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcs-app1
+  # strategy: {}
+  template:
+    metadata:
+      labels:
+        app: tcs-app1
+    spec:
+      containers:
+      - image: lsilva.azurecr.io/tcs-app1
+        name: tcs-app1
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: tcs-app1
+  name: tcs-app1-svc
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: tcs-app1
+  type: LoadBalancer
