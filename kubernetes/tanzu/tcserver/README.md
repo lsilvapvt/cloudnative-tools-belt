@@ -50,6 +50,11 @@ This allows for the use of [Tanzu Build Service](https://docs.pivotal.io/build-s
 8. Check the build logs and, if the build is successful, find the new image in the repository under the `tag` defined in the command above  
    e.g. `kp build logs myAppImage -b 1`
 
+
+Reference:
+
+- [tc Server documentation - instance deployment descriptor spec](https://tcserver.docs.pivotal.io/4x/docs-tcserver/topics/tcserver-command-reference.html#create-from-file)
+
 --- 
 
 ## Building a tcServer Container Image with Dockerfiles

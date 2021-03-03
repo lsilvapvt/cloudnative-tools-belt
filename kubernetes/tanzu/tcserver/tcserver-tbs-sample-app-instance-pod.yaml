@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tcserver-tbs-sample-app
+spec:
+  containers:
+  - name: vmware-tbs-tcserver-standard-4-1-7
+    image: lsilva.azurecr.io/sample-tc1-2:latest
+    imagePullPolicy: Always
+  imagePullSecrets:
+  - name: regcred
+  restartPolicy: Never
