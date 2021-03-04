@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: petclinic
+  name: petclinic-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic
+  # strategy: {}
+  template:
+    metadata:
+      labels:
+        app: petclinic
+    spec:
+      containers:
+      - image: lsilva.azurecr.io/petclinic
+        name: petclinic
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: petclinic
+  name: petclinic-svc
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: petclinic
+  type: LoadBalancer

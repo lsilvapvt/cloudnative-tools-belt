@@ -1,0 +1,22 @@
+# kpack Image CRD specs: https://github.com/pivotal/kpack/blob/master/docs/image.md
+#  
+apiVersion: kpack.io/v1alpha1
+kind: Image
+metadata:
+  name: petclinic
+  namespace: default
+spec:
+  builder:
+    kind: ClusterBuilder
+    name: tcserverbuilder
+  imageTaggingStrategy: BuildNumber
+  serviceAccount: default
+  tag: lsilva.azurecr.io/petclinic
+  source:
+    git:
+      revision: main
+      url: https://github.com/lsilvapvt/spring-petclinic.git
+  # build: 
+  #   env:
+  #     - name: BP_JVM_VERSION
+  #       value: 8.*      
